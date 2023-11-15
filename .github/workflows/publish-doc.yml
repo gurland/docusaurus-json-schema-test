@@ -1,5 +1,5 @@
 name: Build and publish docs
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+run-name: Build docs
 on:
   push:
     branches:
@@ -17,7 +17,7 @@ jobs:
       - run: npm install
       - run: npm run build
       - name: Publish build to gh-pages
-        uses: peaceiris/actions-gh-pages@v3.9.3
+        uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./build
