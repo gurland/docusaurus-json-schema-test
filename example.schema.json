@@ -1,0 +1,80 @@
+{
+  "$defs": {
+    "person": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "office": {
+          "type": "object",
+          "properties": {
+            "building": { "type": "string" },
+            "room": { "type": "string" }
+          },
+          "required": ["building", "room"]
+        }
+      },
+      "required": ["name", "office"]
+    },
+    "grades": {
+      "type": "object",
+      "properties": {
+        "midterm": { "type": "integer" },
+        "final": { "type": "integer" }
+      },
+      "required": ["midterm", "final"]
+    },
+    "student": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "grades": { "$ref": "#/$defs/grades" }
+      },
+      "required": ["id", "name", "grades"]
+    },
+    "instructor": {
+      "$ref": "#/$defs/person"
+    },
+    "department": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "chairperson": { "$ref": "#/$defs/person" },
+        "courses": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/course" }
+        }
+      },
+      "required": ["name", "chairperson", "courses"]
+    },
+    "course": {
+      "type": "object",
+      "properties": {
+        "code": { "type": "string" },
+        "name": { "type": "string" },
+        "instructor": { "$ref": "#/$defs/instructor" },
+        "students": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/student" }
+        }
+      },
+      "required": ["code", "name", "instructor", "students"]
+    }
+  },
+  "type": "object",
+  "properties": {
+    "university": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "location": { "type": "string" },
+        "departments": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/department" }
+        }
+      },
+      "required": ["name", "location", "departments"]
+    }
+  },
+  "required": ["university"]
+}
